@@ -7,11 +7,17 @@ RUN apt-get update
 RUN apt-get install -y nginx 
 
 #borra el archivo y copia el nuestro que esta junto al dockerfile
-RUN rm -f /usr/share/nginx/html/index.html
-#
-ADD index.html /usr/share/nginx/html
+#RUN rm -f /usr/share/nginx/html/index.html
+RUN rm -f /var/www/html/index.html
+
+#ADD index.html /usr/share/nginx/html
+
+ADD index.html /var/www/html
 
 #Indica los puertos TCP/IP los cuales se pueden accede a los servicios del contenedor
-EXPOSE '8080'
+EXPOSE '80'
+
+RUN echo "ServerName 127.0.01:80"
+#Establece el commando del proceso de inicio del contenedor
 
 CMD ["nginx", "-g", "daemon off;"]
